@@ -2,6 +2,10 @@
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { useState } from "react";
+import emailjs from "@emailjs/browser";
+import { useRef } from "react";
+
+
 
 export default function Home() {
   const [open, setOpen] = useState(false);
@@ -109,12 +113,171 @@ export default function Home() {
       </motion.section>
 
       {/* Projects Section */}
-      <section id="projects" className="flex items-center justify-center text-white px-6 pb-20">
-        <div>
-          <h1 className="text-3xl font-bold mb-4 justify-center">My Projects</h1>
-          
+      <motion.section
+        id="projects"
+        initial={{ opacity: 0, y: 60 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.9, ease: [0.25, 0.1, 0.25, 1] }}
+        viewport={{ once: true, margin: "-100px" }}
+        className="text-white px-6 pb-20">
+        <div className="max-w-6xl mx-auto">
+
+          <h2 className="text-3xl font-bold mb-10 text-center">
+            My Projects
+          </h2>
+
+          <div className="grid md:grid-cols-2 gap-6">
+
+            {/* Project 1 */}
+            <div className="bg-white/5 border border-white/10 rounded-xl p-5 hover:scale-[1.02] transition">
+
+              <h3 className="text-xl font-semibold">
+                MoiTube - Video Social Platform
+              </h3>
+
+              <p className="text-gray-400 text-sm mt-2 line-clamp-3">
+                Full-stack video platform built with Flutter + NestJS. Supports video upload, streaming, comments, subscriptions, and real-time notifications with a cyberpunk UI.
+              </p>
+
+              <div className="mt-3 text-xs text-blue-400">
+                Flutter · NestJS · PostgreSQL · Cloudinary
+              </div>
+
+              <div className="mt-4 flex gap-3">
+                <a href="https://github.com/ManhNgoDev/MoiTube" className="text-sm text-white underline">GitHub</a>
+              </div>
+
+            </div>
+
+            {/* Project 2 */}
+            <div className="bg-white/5 border border-white/10 rounded-xl p-5 hover:scale-[1.02] transition">
+              <h3 className="text-xl font-semibold">
+                Thiên Đạo AI (ThienDaoAI)
+              </h3>
+
+              <p className="text-gray-400 text-sm mt-2 line-clamp-3">
+                AI mobile app inspired by cultivation fantasy. Users can chat with "Heavenly Dao", gain XP, track cultivation level, and revisit historical conversations.
+              </p>
+
+              <div className="mt-3 text-xs text-blue-400">
+                Kotlin · Jetpack Compose · Room · Retrofit · LLM Local
+              </div>
+
+              <div className="mt-4 flex gap-3">
+                <a href="https://github.com/ManhNgoDev/ThienDaoAI" className="text-sm text-white underline">GitHub</a>
+              </div>
+
+            </div>
+
+          </div>
         </div>
-      </section>
+      </motion.section>
+
+      {/* Skills Section */}
+      <motion.section
+        id="skills"
+        initial={{ opacity: 0, y: 60 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.9, ease: [0.25, 0.1, 0.25, 1] }}
+        viewport={{ once: true, margin: "-100px" }}
+        className="text-white px-6 pb-20">
+        <div className="max-w-6xl mx-auto">
+
+          <h2 className="text-3xl font-bold mb-10 text-center">
+            My Skills
+          </h2>
+
+          <div className="grid md:grid-cols-3 gap-6">
+            <div className="bg-white/5 border border-white/10 rounded-xl p-5 hover:scale-[1.02] transition">
+              <h3 className="text-xl font-semibold">
+                Mobile Development
+              </h3>
+              <p className="text-gray-400 text-sm mt-2">
+                Flutter, Android (Java/Kotlin), React Native
+              </p>
+            </div>
+
+            <div className="bg-white/5 border border-white/10 rounded-xl p-5 hover:scale-[1.02] transition">
+              <h3 className="text-xl font-semibold">
+                Backend & Database
+              </h3>
+              <p className="text-gray-400 text-sm mt-2">
+                Node.js, PostgreSQL, MongoDB
+              </p>
+            </div>
+
+            <div className="bg-white/5 border border-white/10 rounded-xl p-5 hover:scale-[1.02] transition">
+              <h3 className="text-xl font-semibold">
+                Tools
+              </h3>
+              <p className="text-gray-400 text-sm mt-2">
+                Git, Docker, CI/CD, Cloud Platforms, Figma
+              </p>
+            </div>
+          </div>
+        </div>
+      </motion.section>
+
+      {/* Contact Section */}
+
+      <motion.section
+        id="contact"
+        initial={{ opacity: 0, y: 60 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.9, ease: [0.25, 0.1, 0.25, 1] }}
+        viewport={{ once: true, margin: "-100px" }}
+        className="text-white px-6 pb-20">
+        <div className="max-w-6xl mx-auto">
+          <h2 className="text-3xl font-bold mb-10 text-center">
+            Contact Me
+          </h2>
+
+          <div className="grid md:grid-cols-2 gap-10">
+
+            <div className="space-y-4">
+              <h3 className="text-xl font-semibold">Get in touch</h3>
+
+              <p className="text-gray-400">
+                I'm open to internship opportunities, freelance projects, or collaboration.
+              </p>
+
+              <div className="text-gray-300 space-y-2">
+                <p>📧 Email: ngovanm691@gmail.com</p>
+                <p>💻 GitHub: https://github.com/ManhNgoDev</p>
+                <p>🔗 LinkedIn: https://www.linkedin.com/in/manh-ngo-3b887b365/</p>
+                <p>📞 Phone: +84 984105709</p>
+              </div>
+            </div>
+
+            <div className="space-y-4">
+
+              <a
+                href="https://mail.google.com/mail/?view=cm&fs=1&to=ngovanm691@gmail.com&su=Portfolio%20Contact&body=Hi%20Manh%2C%0AI%20saw%20your%20portfolio"
+                target="_blank"
+                className="block w-full bg-blue-500 hover:bg-blue-600 py-3 rounded font-semibold text-center"
+              >
+                Send Email
+              </a>
+
+              <a
+                href="https://github.com/ManhNgoDev"
+                className="block bg-white/10 hover:bg-white/20 text-center py-3 rounded"
+              >
+                View GitHub
+              </a>
+
+              <a
+                href="https://www.linkedin.com/in/manh-ngo-3b887b365/"
+                className="block bg-white/10 hover:bg-white/20 text-center py-3 rounded"
+              >
+                Connect LinkedIn
+              </a>
+
+            </div>
+
+          </div>
+        </div>
+      </motion.section>
     </main>
   );
 }
