@@ -51,29 +51,50 @@ export default function MusicPlayer() {
         }
     }, [index]); // FIX 2: `playing` intentionally excluded; read via ref to avoid stale closure
 
-    // FIX 1: Mount effect — autoplay with fade-in, no `autoPlay` attr on <audio>
+    // Mount effect — autoplay with fade-in, fallback to first user interaction
     useEffect(() => {
         const audio = audioRef.current;
         if (!audio) return;
 
+        const fadeIn = () => {
+            audio.volume = 0;
+            let vol = 0;
+            const fade = setInterval(() => {
+                vol = Math.min(vol + 0.05, 1);
+                audio.volume = vol;
+                if (vol >= 1) clearInterval(fade);
+            }, 120);
+        };
+
         const startMusic = async () => {
             try {
-                audio.volume = 0;
+                // Thử autoplay ngay khi vào trang
                 await audio.play();
-
-                let vol = 0;
-                const fade = setInterval(() => {
-                    vol = Math.min(vol + 0.05, 1);
-                    if (audio) audio.volume = vol;
-                    if (vol >= 1) clearInterval(fade);
-                }, 120);
+                fadeIn();
             } catch {
-                console.log("Autoplay blocked — waiting for user interaction.");
+                // Browser chặn autoplay → chờ lần click/keystroke đầu tiên
+                const handleFirstInteraction = async () => {
+                    try {
+                        await audio.play();
+                        fadeIn();
+                    } catch { }
+                    document.removeEventListener("click", handleFirstInteraction);
+                    document.removeEventListener("keydown", handleFirstInteraction);
+                };
+
+                document.addEventListener("click", handleFirstInteraction);
+                document.addEventListener("keydown", handleFirstInteraction);
+
+                // Cleanup nếu component unmount trước khi user tương tác
+                return () => {
+                    document.removeEventListener("click", handleFirstInteraction);
+                    document.removeEventListener("keydown", handleFirstInteraction);
+                };
             }
         };
 
         startMusic();
-    }, []); // runs once on mount only
+    }, []);
 
     const updateProgress = () => {
         const audio = audioRef.current;
