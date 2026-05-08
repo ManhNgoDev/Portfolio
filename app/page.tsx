@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import { useState } from "react";
 import emailjs from "@emailjs/browser";
 import { useRef } from "react";
+import MusicPlayer from "./components/MusicPlayer";
 
 
 
@@ -105,8 +106,7 @@ export default function Home() {
           <h2 className="text-white font-bold text-2xl mb-4">About Me</h2>
           <p className="text-gray-400 text-lg leading-relaxed">
             I'm Manh Ngo, a Mobile Developer passionate about building smooth and user-friendly applications.
-            I work mainly with Flutter and Android (Java/Kotlin), and I also have experience with web development
-            with React and Next.js. I enjoy learning new technologies, improving app performance, and creating
+            I work mainly with Flutter and Android (Java/Kotlin). I enjoy learning new technologies, improving app performance, and creating
             personal projects. My goal is to become a well-rounded developer who can build complete and impactful products.
           </p>
         </div>
@@ -278,6 +278,8 @@ export default function Home() {
           </div>
         </div>
       </motion.section>
+
+      <MusicPlayer />
     </main>
   );
 }
