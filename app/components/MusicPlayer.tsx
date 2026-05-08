@@ -161,17 +161,17 @@ export default function MusicPlayer() {
                         ))}
                     </div>
 
-                    <audio
-                        ref={audioRef}
-                        src={current.src}
-                        autoPlay
-                        onPlay={() => setPlaying(true)}
-                        onPause={() => setPlaying(false)}
-                        onTimeUpdate={updateProgress}
-                        onEnded={next}
-                    />
                 </div>
             )}
+            <audio
+                ref={audioRef}
+                src={current.src}
+                autoPlay
+                onPlay={() => setPlaying(true)}
+                onPause={() => setPlaying(false)}
+                onTimeUpdate={updateProgress}
+                onEnded={next}
+            />
         </>
     );
 }
